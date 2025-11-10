@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 30px;
+            color: #333;
+        }
+
+        .content h2 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .benefits {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .benefits ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .benefits li {
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .benefits li:last-child {
+            border-bottom: none;
+        }
+
+        .benefits li strong {
+            color: #667eea;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .privacy-note {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 3px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">📬</div>
+            <h1>Welcome to Our Newsletter!</h1>
+            <p style="margin: 0; font-size: 16px;">You're now part of the Game Store family</p>
+        </div>
+
+        <div class="content">
+            <h2>Thanks for Subscribing!</h2>
+            <p>We're thrilled to have you join our community of gaming enthusiasts. You've just unlocked access to exclusive deals, insider news, and special offers!</p>
+
+            <div class="benefits">
+                <h3 style="margin-top: 0; color: #333;">What You'll Receive:</h3>
+                <ul>
+                    <li>🎮 <strong>Exclusive Game Deals</strong> - First access to sales and discounts</li>
+                    <li>🆕 <strong>New Releases</strong> - Be the first to know about upcoming games</li>
+                    <li>🎁 <strong>Special Offers</strong> - Subscriber-only promotions and bundles</li>
+                    <li>📰 <strong>Gaming News</strong> - Industry updates and gaming trends</li>
+                </ul>
+            </div>
+
+            <center>
+                <a href="http://localhost:5173" class="cta-button">Start Shopping Now</a>
+            </center>
+
+            <div class="privacy-note">
+                <strong>🔒 Your Privacy Matters</strong><br>
+                We respect your inbox. You'll only receive quality content, and you can unsubscribe anytime with one click.
+            </div>
+
+            <p style="color: #6c757d; font-size: 14px; margin-top: 30px;">
+                Keep an eye on your inbox for our latest deals and updates. Happy gaming! 🎮
+            </p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Game Store</strong> &copy; 2025 | All rights reserved</p>
+            <p>You're receiving this because you subscribed to our newsletter.</p>
+            <p><a th:href="@{http://localhost:8080/unsubscribe(email=${email})}">Unsubscribe</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,226 @@
+.game-list-page {
+    min-height: 80vh;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.global-keys-banner {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.2) 0%, rgba(162, 155, 254, 0.2) 100%);
+    border: 2px solid rgba(108, 92, 231, 0.4);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 2rem 20px 0;
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.2);
+}
+
+.game-list-container {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0 20px 4rem;
+}
+
+.game-list-content {
+    min-width: 0;
+}
+
+.game-list-page h1 {
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.search-result-text {
+    text-align: center;
+    color: #a0a0c0;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.search-result-text strong {
+    color: #6c5ce7;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+}
+
+.game-grid.list-view {
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.results-count {
+    color: #a0a0c0;
+    font-size: 0.95rem;
+    padding-left: 0.5rem;
+}
+
+.view-toggle {
+    display: flex;
+    gap: 0.5rem;
+    background: #1a1a2e;
+    border: 2px solid #2d2d44;
+    border-radius: 8px;
+    padding: 0.25rem;
+}
+
+.view-btn {
+    background: transparent;
+    border: none;
+    color: #b0b0b0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-btn:hover {
+    color: #e0e0e0;
+    background: rgba(108, 92, 231, 0.1);
+    transform: scale(1.05);
+}
+
+.view-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: scale(1.0);
+}
+
+.view-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.no-games-container {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #1a1a2e;
+    border: 2px solid #2d2d44;
+    border-radius: 12px;
+    margin: 2rem auto;
+    max-width: 500px;
+}
+
+.no-games-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.no-games-container h3 {
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.no-games-container p {
+    color: #a0a0c0;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.no-games {
+    text-align: center;
+    padding: 4rem 2rem;
+    font-size: 1.2rem;
+    color: #a0a0c0;
+    background: #1a1a2e;
+    border: 2px solid #2d2d44;
+    border-radius: 12px;
+    margin: 2rem;
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .game-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .game-list-page {
+        padding: 2rem 20px 3rem;
+    }
+
+    .results-header {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-list-page {
+        padding: 1.5rem 15px 3rem;
+    }
+
+    .game-list-page h1 {
+        font-size: 2rem;
+    }
+
+    .global-keys-banner {
+        font-size: 0.9rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .game-list-container {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search-form {
+        flex-direction: column;
+        border-radius: 12px;
+    }
+
+    .search-input,
+    .search-button,
+    .clear-button {
+        border-radius: 8px;
+    }
+
+    .view-toggle {
+        display: none !important;
+    }
+
+    .game-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .no-games-container {
+        padding: 3rem 1.5rem;
+    }
+
+    .no-games-icon {
+        font-size: 3rem;
+    }
+}

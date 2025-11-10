@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 32px;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 30px;
+            color: #333;
+        }
+
+        .content h2 {
+            color: #28a745;
+            margin-top: 0;
+        }
+
+        .order-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .order-info p {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .order-info strong {
+            color: #495057;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 20px;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .game-key {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-key-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+
+        .game-key-platform {
+            color: #6c757d;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .game-key-code {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 18px;
+            letter-spacing: 2px;
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 2px dashed #667eea;
+            word-break: break-all;
+        }
+
+        .copy-instructions {
+            font-size: 13px;
+            color: #6c757d;
+            margin-top: 8px;
+        }
+
+        .warning-box {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            border-radius: 5px;
+        }
+
+        .warning-box strong {
+            color: #856404;
+            font-size: 16px;
+        }
+
+        .warning-box p {
+            margin: 10px 0 0 0;
+            color: #856404;
+        }
+
+        .help-box {
+            background-color: #e7f3ff;
+            padding: 20px;
+            border-left: 5px solid #0066cc;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .help-box h4 {
+            margin: 0 0 10px 0;
+            color: #0066cc;
+        }
+
+        .help-box ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .help-box li {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 25px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            margin: 15px 0;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✅ Order Confirmed!</h1>
+            <p>Your game keys are ready to use</p>
+        </div>
+
+        <div class="content">
+            <h2>Thank you, <span th:text="${username}">User</span>! 🎮</h2>
+            <p style="font-size: 16px;">Your order has been successfully processed and your game keys are ready. Get ready to start gaming!</p>
+
+            <div class="order-info">
+                <p><strong>📋 Order ID:</strong> #<span th:text="${orderId}">12345</span></p>
+                <p><strong>📅 Order Date:</strong> <span th:text="${#temporals.format(orderDate, 'dd MMMM yyyy HH:mm')}">09 November 2025 12:00</span></p>
+                <p><strong>💰 Total Paid:</strong> €<span th:text="${#numbers.formatDecimal(totalPrice, 1, 2)}">99.99</span></p>
+            </div>
+
+            <h3 class="section-title">🔑 Your Game Keys</h3>
+
+            <div th:each="key : ${gameKeys}" class="game-key">
+                <p class="game-key-title" th:text="${key.game.title}">Game Title</p>
+                <p class="game-key-platform">🎮 Platform: <strong th:text="${key.platform.name}">PC</strong></p>
+                <div class="game-key-code">
+                    <span th:text="${key.keyCode}">XXXX-XXXX-XXXX-XXXX</span>
+                </div>
+                <p class="copy-instructions">💡 Click to select and copy your key</p>
+            </div>
+
+            <div class="help-box">
+                <h4>📖 How to Redeem Your Keys:</h4>
+                <ul>
+                    <li><strong>Steam:</strong> Open Steam → Games → Activate a Product on Steam</li>
+                    <li><strong>Epic Games:</strong> Epic Launcher → Account → Redeem Code</li>
+                    <li><strong>PlayStation:</strong> PS Store → Redeem Codes</li>
+                    <li><strong>Xbox:</strong> Microsoft Store → Use a code</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Important Information</strong>
+                <p>• Save these keys immediately - they won't be sent again<br>
+                    • You can find them anytime in your order history<br>
+                    • Each key can only be activated once<br>
+                    • Contact support if you have any issues activating your keys</p>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 15px; color: #6c757d;">
+                Thank you for shopping with <strong>Game Store</strong>! Enjoy your games! 🎉
+            </p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Game Store</strong> &copy; 2025 | All rights reserved</p>
+            <div class="social-links">
+                <a href="#">Twitter</a> |
+                <a href="#">Discord</a> |
+                <a href="#">Instagram</a>
+            </div>
+            <p>Need assistance? Contact us at <a href="mailto:support@gamestore.com">support@gamestore.com</a></p>
+            <p style="margin-top: 10px;">
+                <a href="http://localhost:5173/orders">View Order History</a> |
+                <a href="http://localhost:5173/support">Help Center</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

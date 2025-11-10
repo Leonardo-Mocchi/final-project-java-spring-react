@@ -1,0 +1,112 @@
+.genres-page {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.genres-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.genres-subtitle {
+    color: #8e8ea0;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.genres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.genre-card {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 2px solid #2d2d44;
+    border-radius: 15px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.genre-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(162, 155, 254, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.genre-card:hover {
+    border-color: #6c5ce7;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+}
+
+.genre-card:hover::before {
+    opacity: 1;
+}
+
+.genre-card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.genre-card h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #e0e0e0;
+    transition: all 0.3s;
+}
+
+.genre-card:hover h2 {
+    color: #a29bfe;
+}
+
+.genre-arrow {
+    font-size: 2rem;
+    color: #6c5ce7;
+    transition: all 0.3s;
+}
+
+.genre-card:hover .genre-arrow {
+    transform: translateX(5px);
+    color: #a29bfe;
+}
+
+@media (max-width: 768px) {
+    .genres-page {
+        padding: 1.5rem;
+    }
+
+    .genres-page h1 {
+        font-size: 2rem;
+    }
+
+    .genres-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .genre-card {
+        padding: 1.5rem;
+    }
+
+    .genre-card h2 {
+        font-size: 1.3rem;
+    }
+}

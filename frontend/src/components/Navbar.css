@@ -1,0 +1,843 @@
+.navbar {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-bottom: 2px solid #6c5ce7;
+    padding: 0.75rem 0;
+    box-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 3rem;
+    position: relative;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 3px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.navbar-brand {
+    text-decoration: none;
+    transition: filter 0.3s, opacity 0.3s;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0.5rem 0;
+    /* Vertical padding for logo */
+}
+
+.navbar-brand:hover {
+    filter: brightness(1.2) drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
+    opacity: 0.9;
+}
+
+.navbar-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+.navbar-logo-mobile {
+    display: none;
+}
+
+.navbar-logo-desktop {
+    display: block;
+}
+
+.cart-link-mobile {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.nav-games-platforms {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    min-height: 45px;
+    justify-content: flex-start;
+}
+
+.all-games-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #00f0ff 100%);
+    border: 2px solid rgba(255, 0, 110, 0.5);
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.4), 0 0 40px rgba(131, 56, 236, 0.2);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.all-games-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.all-games-link:hover::before {
+    left: 100%;
+}
+
+.all-games-link:hover {
+    box-shadow: 0 0 30px rgba(255, 0, 110, 0.6), 0 0 60px rgba(131, 56, 236, 0.4);
+    transform: translateY(-2px);
+    border-color: #ff006e;
+}
+
+.platform-links-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.platform-links-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.platform-link {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    transition: all 0.3s;
+    white-space: nowrap;
+    background: rgba(108, 92, 231, 0.1);
+    border: 1px solid rgba(108, 92, 231, 0.3);
+    cursor: pointer;
+}
+
+.platform-link:hover {
+    background: rgba(108, 92, 231, 0.25);
+    border-color: #6c5ce7;
+    color: #a29bfe;
+    transform: translateY(-1px);
+}
+
+.search-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+    max-width: 400px;
+    margin-right: 2rem;
+    /* Add space before nav-actions */
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    background: #0f0f23;
+    border: 2px solid #2d2d44;
+    border-radius: 25px;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    min-width: 0;
+    /* Allow shrinking */
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #6c5ce7;
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.search-input::placeholder {
+    color: #6c6c8a;
+}
+
+.search-btn {
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.search-btn:hover {
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+    filter: brightness(1.1);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.cart-link {
+    flex-shrink: 0;
+}
+
+.nav-link {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    background: rgba(108, 92, 231, 0.2);
+    color: #a29bfe;
+}
+
+.register-btn,
+.login-btn,
+.signup-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    transition: all 0.3s;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+}
+
+.register-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.register-btn:hover,
+.login-btn:hover,
+.signup-btn:hover {
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.admin-link {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s;
+    background: rgba(255, 165, 0, 0.15);
+    border: 2px solid rgba(255, 165, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.admin-link:hover {
+    background: rgba(255, 165, 0, 0.25);
+    border-color: orange;
+    color: orange;
+    transform: rotate(90deg);
+}
+
+.logout-btn {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s;
+    white-space: nowrap;
+    background: rgba(255, 75, 75, 0.1);
+    border: 1px solid rgba(255, 75, 75, 0.3);
+}
+
+.logout-btn:hover {
+    background: rgba(255, 75, 75, 0.2);
+    border-color: #ff4b4b;
+    color: #ff6b6b;
+}
+
+.cart-link {
+    position: relative;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.8rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s;
+    background: rgba(108, 92, 231, 0.15);
+    border: 2px solid rgba(108, 92, 231, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+}
+
+.cart-link:hover {
+    background: rgba(108, 92, 231, 0.25);
+    border-color: #6c5ce7;
+    color: #a29bfe;
+    transform: scale(1.05);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff6b6b;
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.user-greeting {
+    color: #a29bfe;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.navbar-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+    .nav-container {
+        width: 90%;
+    }
+
+    .search-bar {
+        max-width: 350px;
+    }
+
+    .platform-links-center {
+        gap: 0.75rem;
+    }
+
+    .platform-link {
+        font-size: 0.9rem;
+        padding: 0.45rem 0.9rem;
+    }
+
+    .all-games-link {
+        font-size: 0.95rem;
+        padding: 0.45rem 1rem;
+    }
+}
+
+/* Large screen adjustments */
+@media (max-width: 1580px) {
+    .nav-container {
+        gap: 1rem;
+    }
+
+    .nav-content {
+        gap: 1rem;
+    }
+
+    .search-bar {
+        max-width: 300px;
+        margin-right: 1rem;
+    }
+
+    .platform-link {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.7rem;
+    }
+
+    .all-games-link {
+        font-size: 0.8rem;
+        padding: 0.45rem 0.9rem;
+    }
+}
+
+/* Tablet Responsive (769px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .hamburger-menu {
+        display: flex;
+        order: 1;
+    }
+
+    .navbar-brand {
+        order: 2;
+        margin: 0 auto;
+    }
+
+    .nav-content {
+        display: none !important;
+    }
+
+    .cart-link-mobile {
+        display: flex;
+        order: 4;
+        align-items: center;
+        justify-content: center;
+        color: #e0e0e0;
+        text-decoration: none;
+        font-size: 1.5rem;
+        transition: all 0.3s;
+        position: relative;
+    }
+
+    .mobile-menu {
+        display: flex;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: #1a1a2e;
+        flex-direction: column;
+        padding: 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        border-top: 2px solid #6c5ce7;
+        z-index: 99;
+    }
+
+    .mobile-menu.open {
+        max-height: calc(100vh - 80px);
+        opacity: 1;
+        overflow-y: auto;
+    }
+
+    .mobile-games-platforms {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .mobile-games-platforms .all-games-link {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+
+    .mobile-games-platforms .platform-link {
+        flex: 0 0 calc(50% - 0.25rem);
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .mobile-search-bar {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .mobile-auth-section {
+        display: none;
+    }
+
+    .nav-actions {
+        order: 3;
+        display: flex !important;
+        gap: 0.75rem;
+    }
+}
+
+/* Mobile Responsive (max-width: 768px) */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 0;
+    }
+
+    .nav-container {
+        gap: 1rem;
+        padding: 0 1rem;
+        justify-content: space-between;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        order: 1;
+    }
+
+    .navbar-brand {
+        order: 2;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .navbar-logo-desktop {
+        display: none;
+    }
+
+    .navbar-logo-mobile {
+        display: block;
+        height: 40px;
+    }
+
+    .nav-content {
+        display: none !important;
+    }
+
+    .cart-link-mobile {
+        display: flex;
+        order: 3;
+        align-items: center;
+        justify-content: center;
+        color: #e0e0e0;
+        text-decoration: none;
+        font-size: 1.5rem;
+        transition: all 0.3s;
+        position: relative;
+        margin-left: auto;
+    }
+
+    .cart-link-mobile:hover {
+        color: #667eea;
+        transform: scale(1.1);
+    }
+
+    .mobile-menu {
+        display: flex;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: #1a1a2e;
+        flex-direction: column;
+        padding: 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        border-top: 2px solid #6c5ce7;
+        z-index: 99;
+        gap: 1.5rem;
+    }
+
+    .mobile-menu.open {
+        max-height: calc(100vh - 70px);
+        opacity: 1;
+        overflow-y: auto;
+    }
+
+    .mobile-auth-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #2d2d44;
+    }
+
+    .mobile-auth-section .user-greeting {
+        color: #e0e0e0;
+        font-weight: 600;
+    }
+
+    .mobile-auth-section .login-btn,
+    .mobile-auth-section .signup-btn {
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .mobile-auth-section .login-btn {
+        background: transparent;
+        color: #667eea;
+        border: 2px solid #667eea;
+    }
+
+    .mobile-auth-section .signup-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+    }
+
+    .mobile-auth-section .logout-btn {
+        background: #ff4757;
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .mobile-games-platforms {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .mobile-games-platforms .all-games-link {
+        width: 100%;
+        padding: 0.8rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .mobile-games-platforms .platform-links-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .mobile-games-platforms .platform-link {
+        flex: 0 0 calc(50% - 0.25rem);
+        padding: 0.7rem;
+        background: #0f0f23;
+        border: 1px solid #2d2d44;
+        color: #b0b0b0;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .mobile-games-platforms .platform-link:hover {
+        border-color: #667eea;
+        color: #e0e0e0;
+    }
+
+    .mobile-search-bar {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .mobile-search-bar .search-input {
+        flex: 1;
+        padding: 0.8rem;
+        background: #0f0f23;
+        border: 1px solid #2d2d44;
+        color: #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+    .mobile-search-bar .search-btn {
+        padding: 0.8rem 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    .navbar-logo {
+        height: 45px;
+    }
+
+    .search-bar {
+        max-width: 250px;
+    }
+
+    .search-input {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .search-btn {
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+    }
+
+    .login-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .logout-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .admin-link {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .navbar-logo {
+        height: 40px;
+    }
+
+    .nav-games-platforms {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(108, 92, 231, 0.3);
+    }
+
+    .all-games-link {
+        font-size: 0.8rem;
+        padding: 0.45rem 1rem;
+    }
+
+    .platform-links-inline {
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .platform-link {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+    }
+
+    .search-bar {
+        order: 2;
+        flex: 1 1 200px;
+        max-width: none;
+    }
+
+    .nav-actions {
+        order: 1;
+        gap: 0.5rem;
+    }
+
+    .login-btn,
+    .signup-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .cart-link {
+        position: static;
+        margin-left: auto;
+    }
+}
+
+/* Large viewport optimizations */
+@media (min-width: 1200px) {
+    .navbar {
+        padding: 1rem 0;
+    }
+
+    .navbar-logo {
+        height: 75px;
+    }
+
+    .nav-container {
+        gap: 2rem;
+    }
+
+    .platform-links-inline {
+        gap: 0.6rem;
+        max-width: 600px;
+    }
+
+    .platform-link {
+        font-size: 0.8rem;
+        padding: 0.45rem 0.85rem;
+    }
+
+    .all-games-link {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .search-bar input {
+        font-size: 0.95rem;
+        height: 42px;
+    }
+
+    .login-btn,
+    .signup-btn,
+    .register-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.4rem;
+    }
+
+    .cart-link {
+        font-size: 1.1rem;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 567px) {
+    .platform-link {
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+
+    .navbar-logo {
+        height: 40px;
+    }
+}

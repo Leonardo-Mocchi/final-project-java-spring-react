@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 30px;
+            color: #333;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 Welcome to Game Store!</h1>
+        </div>
+        <div class="content">
+            <h2>Hello <span th:text="${username}">User</span>!</h2>
+            <p>Thank you for joining <strong>Game Store</strong>! We're excited to have you as part of our gaming community.</p>
+            <p>Your account has been successfully created with the email: <strong th:text="${email}">email@example.com</strong></p>
+            <h3>What's Next?</h3>
+            <ul>
+                <li>🎮 Browse our collection of 100+ games</li>
+                <li>🔑 Get instant game keys after purchase</li>
+                <li>💬 Leave reviews and ratings</li>
+                <li>🎁 Enjoy exclusive discounts</li>
+            </ul>
+            <a href="http://localhost:5173" class="btn">Start Shopping</a>
+        </div>
+        <div class="footer">
+            <p>Game Store &copy; 2025 | All rights reserved</p>
+            <p>This is an automated email. Please do not reply.</p>
+        </div>
+    </div>
+</body>
+
+</html>

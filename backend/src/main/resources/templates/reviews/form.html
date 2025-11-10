@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, true)}">
+
+<head>
+    <title>Edit Review</title>
+</head>
+
+<body>
+    <div th:fragment="content">
+        <h1>Edit Review</h1>
+        <p class="text-muted">Modify review details or moderation status</p>
+
+        <form th:action="@{/admin/reviews/update/{id}(id=${review.id})}" th:object="${review}" method="post" class="mt-4">
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <strong>Review Information</strong>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">User</label>
+                        <input type="text" th:value="${review.user.username}" class="form-control" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Game</label>
+                        <input type="text" th:value="${review.game.title}" class="form-control" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating *</label>
+                        <select th:field="*{rating}" class="form-select" id="rating" required>
+                            <option value="1">⭐ 1 - Poor</option>
+                            <option value="2">⭐⭐ 2 - Fair</option>
+                            <option value="3">⭐⭐⭐ 3 - Good</option>
+                            <option value="4">⭐⭐⭐⭐ 4 - Very Good</option>
+                            <option value="5">⭐⭐⭐⭐⭐ 5 - Excellent</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Comment *</label>
+                        <textarea th:field="*{comment}" class="form-control" id="comment" rows="6" required></textarea>
+                        <small class="text-muted">Edit the review comment if needed for moderation purposes</small>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" th:field="*{isBlurred}" class="form-check-input" id="isBlurred">
+                        <label class="form-check-label" for="isBlurred">
+                            🔒 Blur this review (hide from public view)
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Created At</label>
+                        <input type="text" th:value="${#temporals.format(review.createdAt, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i>
+                <strong>Moderation Note:</strong> Be careful when editing user reviews. Changes should only be made to remove inappropriate content or correct formatting issues.
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg"></i> Update Review
+                </button>
+                <a th:href="@{/admin/reviews}" class="btn btn-secondary">
+                    <i class="bi bi-x-lg"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

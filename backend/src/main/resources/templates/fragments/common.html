@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <!-- Navigation Bar Fragment -->
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/admin/games">⚙️ BoolArcade Admin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/games">🎮 Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/categories">📁 Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/orders">📦 Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/game-keys">🔑 Game Keys</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/reviews">⭐ Reviews</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:5173">🏠 Back to Site</a>
+                    </li>
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="d-inline">
+                            <button type="submit" class="nav-link btn btn-link">🚪 Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dark Theme Styles Fragment -->
+    <style th:fragment="darkStyles">
+        /* Dark Theme for Admin Panel */
+        :root {
+            --dark-bg: #0f0f23;
+            --dark-card: #1a1a2e;
+            --dark-border: #2d2d44;
+            --accent-purple: #6c5ce7;
+            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --text-light: #e0e0e0;
+            --text-muted: #b0b0b0;
+        }
+
+        body {
+            background-color: var(--dark-bg) !important;
+            color: var(--text-light) !important;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+            border-bottom: 3px solid var(--accent-purple);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted) !important;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            margin: 0 0.3rem;
+            border: none !important;
+            background: transparent !important;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff !important;
+            background: rgba(108, 92, 231, 0.2) !important;
+        }
+
+        .card {
+            background: linear-gradient(135deg, var(--dark-card) 0%, #16213e 100%) !important;
+            border: 2px solid var(--dark-border) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+            color: var(--text-light) !important;
+        }
+
+        .card:hover {
+            border-color: var(--accent-purple) !important;
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3) !important;
+            transform: translateY(-2px);
+            transition: all 0.3s;
+        }
+
+        .table {
+            color: var(--text-light) !important;
+            background-color: var(--dark-card) !important;
+            border: 1px solid var(--dark-border) !important;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background-color: rgba(108, 92, 231, 0.2) !important;
+            border-bottom: 2px solid var(--accent-purple) !important;
+        }
+
+        .table thead th {
+            color: #fff !important;
+            font-weight: 700;
+            border-color: var(--dark-border) !important;
+        }
+
+        .table tbody tr {
+            background-color: var(--dark-card) !important;
+            border-bottom: 1px solid var(--dark-border) !important;
+            transition: all 0.3s;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(108, 92, 231, 0.1) !important;
+        }
+
+        .table tbody td {
+            border-color: var(--dark-border) !important;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient) !important;
+            border: none !important;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4) !important;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4757 0%, #e84118 100%) !important;
+            border: none !important;
+            font-weight: 600;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4) !important;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffd93d 0%, #f6b93b 100%) !important;
+            border: none !important;
+            color: #000 !important;
+            font-weight: 600;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #636e72 0%, #2d3436 100%) !important;
+            border: none !important;
+            font-weight: 600;
+            color: #fff !important;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: var(--dark-card) !important;
+            border: 2px solid var(--dark-border) !important;
+            color: var(--text-light) !important;
+            border-radius: 8px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background-color: var(--dark-card) !important;
+            border-color: var(--accent-purple) !important;
+            color: var(--text-light) !important;
+            box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25) !important;
+        }
+
+        .form-label {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: #fff;
+        }
+
+        .alert {
+            border-radius: 12px;
+            border: 2px solid;
+        }
+
+        .alert-success {
+            background-color: rgba(81, 207, 102, 0.2) !important;
+            border-color: #51cf66 !important;
+            color: #51cf66 !important;
+        }
+
+        .alert-danger {
+            background-color: rgba(255, 71, 87, 0.2) !important;
+            border-color: #ff4757 !important;
+            color: #ff4757 !important;
+        }
+
+        .alert-info {
+            background-color: rgba(116, 185, 255, 0.2) !important;
+            border-color: #74b9ff !important;
+            color: #74b9ff !important;
+        }
+    </style>
+</body>
+
+</html>

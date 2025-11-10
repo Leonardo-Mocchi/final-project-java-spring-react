@@ -31,3 +31,36 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Project documentation (internal use only)
+.project-docs/
+
+# Backend (Java/Maven)
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+backend/.settings/
+backend/.classpath
+backend/.project
+backend/.factorypath
+backend/.DS_Store
+backend/*.iml
+backend/.idea/
+backend/*.log
+
+# Frontend (Node/React)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.DS_Store
+frontend/*.log
+frontend/.env
+frontend/.env.local
+frontend/.env.production.local
+frontend/.env.development.local
+
+# Sensitive configuration files (NEVER COMMIT!)
+backend/src/main/resources/application.properties
+backend/src/main/resources/application-*.properties
+**/application-secrets.properties

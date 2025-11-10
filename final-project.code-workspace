@@ -1,0 +1,26 @@
+{
+    "folders": [
+        {
+            "name": "🎮 Full Project",
+            "path": "."
+        },
+        {
+            "name": "☕ Backend (Java Spring)",
+            "path": "backend"
+        },
+        {
+            "name": "⚛️ Frontend (React)",
+            "path": "frontend"
+        }
+    ],
+    "settings": {
+        "java.import.maven.enabled": true,
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "maven.pomfile.autoUpdateEffectivePOM": true,
+        "files.exclude": {
+            "**/.git": false,
+            "**/.DS_Store": true,
+            "**/node_modules": true
+        }
+    }
+}

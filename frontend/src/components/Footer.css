@@ -1,0 +1,40 @@
+.footer {
+    background: #1a1a2e;
+    padding: 1rem 0;
+    margin-top: 4rem;
+    border-top: 2px solid #2d2d44;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.footer-text {
+    margin: 0 0 0.3rem 0;
+    color: #b0b0b0;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.footer-subtext {
+    margin: 0;
+    color: #6c6c8a;
+    font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 0.8rem 0;
+    }
+
+    .footer-text {
+        font-size: 0.75rem;
+    }
+
+    .footer-subtext {
+        font-size: 0.7rem;
+    }
+}

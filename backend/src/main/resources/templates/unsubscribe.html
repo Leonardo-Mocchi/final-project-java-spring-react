@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribe from Newsletter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --dark-bg: #0f0f23;
+            --dark-card: #1a1a2e;
+            --dark-border: #2d2d44;
+            --text-light: #e0e0e0;
+            --text-muted: #b0b0b0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .unsubscribe-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 12px 12px 0 0 !important;
+            padding: 2rem;
+            text-align: center;
+            border: none;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 2rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-control {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-light);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            background: var(--dark-bg);
+            border-color: var(--primary-color);
+            color: var(--text-light);
+            box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--dark-border);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            color: var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background: #3d3d5c;
+            color: var(--text-light);
+        }
+
+        .alert {
+            border-radius: 8px;
+            border: none;
+        }
+
+        .alert-success {
+            background: rgba(46, 213, 115, 0.15);
+            color: #2ed573;
+            border-left: 4px solid #2ed573;
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .icon-large {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="unsubscribe-container">
+        <div class="card">
+            <div class="card-header">
+                <h2>📧 Unsubscribe</h2>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <i class="bi bi-envelope-x icon-large text-warning"></i>
+                    <p class="text-muted">
+                        We're sorry to see you go! Enter your email address below to unsubscribe from our newsletter.
+                    </p>
+                </div>
+
+                <div id="successMessage" class="alert alert-success d-none mb-4">
+                    <i class="bi bi-check-circle"></i>
+                    <strong>Success!</strong> You have been unsubscribed from our newsletter.
+                </div>
+
+                <div id="errorMessage" class="alert alert-danger d-none mb-4">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <strong>Error!</strong> <span id="errorText"></span>
+                </div>
+
+                <form id="unsubscribeForm">
+                    <div class="mb-4">
+                        <label for="email" class="form-label">
+                            <i class="bi bi-envelope"></i> Email Address
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email" th:value="${email}" placeholder="your.email@example.com" required>
+                        <div class="form-text text-muted">
+                            Enter the email address you used to subscribe
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-envelope-slash"></i> Unsubscribe
+                        </button>
+                        <a href="http://localhost:5173" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Return to Store
+                        </a>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-muted small">
+                        Changed your mind? You can always subscribe again from our homepage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('unsubscribeForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+
+            // Hide previous messages
+            successMessage.classList.add('d-none');
+            errorMessage.classList.add('d-none');
+
+            try {
+                const response = await fetch(`http://localhost:8080/api/newsletter/unsubscribe/${encodeURIComponent(email)}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    successMessage.classList.remove('d-none');
+                    document.getElementById('unsubscribeForm').reset();
+
+                    // Redirect after 3 seconds
+                    setTimeout(() => {
+                        window.location.href = 'http://localhost:5173';
+                    }, 3000);
+                } else {
+                    const data = await response.json();
+                    errorText.textContent = data.message || 'Failed to unsubscribe. Please try again.';
+                    errorMessage.classList.remove('d-none');
+                }
+            } catch (error) {
+                errorText.textContent = 'An error occurred. Please try again later.';
+                errorMessage.classList.remove('d-none');
+            }
+        });
+    </script>
+</body>
+
+</html>

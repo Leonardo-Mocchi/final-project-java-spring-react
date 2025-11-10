@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, showNavbar)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <th:block th:replace="${title}"></th:block>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- Include dark theme styles from fragments -->
+    <th:block th:replace="~{fragments/common :: darkStyles}"></th:block>
+
+    <style>
+        /* Additional page-specific styles can go here */
+    </style>
+</head>
+
+<body>
+    <!-- Include navbar from fragments only if showNavbar is true (default) -->
+    <th:block th:if="${showNavbar == null or showNavbar}">
+        <th:block th:replace="~{fragments/common :: navbar}"></th:block>
+    </th:block>
+
+    <main class="container mt-4">
+        <div th:replace="~{::content}">Page content goes here</div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

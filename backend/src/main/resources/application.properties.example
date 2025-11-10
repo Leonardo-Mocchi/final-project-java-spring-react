@@ -1,0 +1,45 @@
+spring.application.name=final-project-java-spring-react
+
+# data source
+spring.datasource.url=jdbc:mysql://localhost:3306/game_store
+spring.datasource.username=root
+spring.datasource.password=YOUR_MYSQL_PASSWORD_HERE
+
+## Hibernate Properties
+#The SQL dialect makes Hibernate generate better SQL for the chosen database
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect
+
+# Hibernate ddl auto (create, create-drop, validate, update, none)
+spring.jpa.hibernate.ddl-auto = create
+
+# IN FASE DI PRODUZIONE INVECE NON BISOGNA TOCCARE LO SCHEMA SQL, usando questa riga
+# spring.jpa.generate-ddl=false
+
+# Date formatting
+spring.mvc.format.date=yyyy-MM-dd
+spring.mvc.format.date-time=yyyy-MM-dd HH:mm:ss
+spring.mvc.format.time=HH:mm:ss
+
+#todo Impostazioni aggiuntive, utili per il testing (rimuoviamole poi)
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+# Thymeleaf Configuration
+spring.thymeleaf.cache=false
+
+# Stripe Configuration (TEST MODE)
+stripe.api.key=sk_test_YOUR_STRIPE_KEY_HERE
+stripe.success.url=http://localhost:5173/checkout/success
+stripe.cancel.url=http://localhost:5173/checkout/cancel
+
+# Gmail SMTP Configuration (for automated emails)
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=your-email@gmail.com
+spring.mail.password=your-gmail-app-password-here
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+spring.mail.properties.mail.smtp.connectiontimeout=5000
+spring.mail.properties.mail.smtp.timeout=5000
+spring.mail.properties.mail.smtp.writetimeout=5000

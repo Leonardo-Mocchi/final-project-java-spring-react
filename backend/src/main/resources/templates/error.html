@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, true)}">
+
+<head>
+    <title>Error</title>
+</head>
+
+<body>
+    <div th:fragment="content">
+        <style>
+            .error-container {
+                min-height: calc(100vh - 200px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .error-content h1 {
+                font-size: 8rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 1rem;
+            }
+
+            .error-content h2 {
+                color: var(--text-light);
+                margin-bottom: 1.5rem;
+            }
+
+            .error-details {
+                background: var(--dark-card);
+                border: 1px solid var(--dark-border);
+                border-radius: 8px;
+                padding: 1.5rem;
+                margin: 2rem 0;
+                text-align: left;
+            }
+
+            .error-details p {
+                margin: 0.5rem 0;
+                color: var(--text-muted);
+            }
+
+            .error-details strong {
+                color: var(--text-light);
+            }
+        </style>
+
+        <div class="error-container">
+            <div class="error-content">
+                <h1>⚠️</h1>
+                <h2>Oops! Something went wrong</h2>
+                <p class="text-muted mb-4">We encountered an unexpected error</p>
+
+                <div class="error-details" th:if="${status}">
+                    <p><strong>Status:</strong> <span th:text="${status}">500</span></p>
+                    <p><strong>Error:</strong> <span th:text="${error}">Internal Server Error</span></p>
+                    <p th:if="${message}"><strong>Message:</strong> <span th:text="${message}"></span></p>
+                    <p th:if="${timestamp}"><strong>Timestamp:</strong> <span th:text="${timestamp}"></span></p>
+                </div>
+
+                <div class="mt-4">
+                    <a href="/" class="btn btn-primary me-2">
+                        <i class="bi bi-house"></i> Go Home
+                    </a>
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Go Back
+                    </a>
+                </div>
+
+                <p class="text-muted small mt-4">
+                    If this problem persists, please contact the administrator
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

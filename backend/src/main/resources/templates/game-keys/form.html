@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, true)}">
+
+<head>
+    <title th:text="${gameKey.id != null ? 'Edit Game Key' : 'Create Game Key'}">Game Key Form</title>
+</head>
+
+<body>
+    <div th:fragment="content">
+        <h1 th:text="${gameKey.id != null ? 'Edit Game Key' : 'Create New Game Key'}">Game Key Form</h1>
+
+        <form th:action="${gameKey.id != null ? '/admin/game-keys/update/' + gameKey.id : '/admin/game-keys'}" th:object="${gameKey}" method="post" class="mt-4">
+
+            <div class="mb-3">
+                <label for="keyCode" class="form-label">Key Code *</label>
+                <input type="text" th:field="*{keyCode}" class="form-control" id="keyCode" required placeholder="XXXXX-XXXXX-XXXXX">
+                <small class="text-muted">Enter the game activation key</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="game" class="form-label">Game *</label>
+                <select th:field="*{game.id}" class="form-select" id="game" required>
+                    <option value="">-- Select Game --</option>
+                    <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.title}">
+                        Game Title
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="platform" class="form-label">Platform *</label>
+                <select th:field="*{platform.id}" class="form-select" id="platform" required>
+                    <option value="">-- Select Platform --</option>
+                    <option th:each="platform : ${platforms}" th:value="${platform.id}" th:text="${platform.name}">
+                        Platform Name
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" th:field="*{sold}" class="form-check-input" id="sold">
+                <label class="form-check-label" for="sold">
+                    Mark as Sold
+                </label>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                <strong>Note:</strong> Only mark as sold if this key has been manually sold outside the system.
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg"></i> Save
+                </button>
+                <a href="/admin/game-keys" class="btn btn-secondary">
+                    <i class="bi bi-x-lg"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
