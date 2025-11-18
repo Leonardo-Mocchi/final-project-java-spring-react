@@ -8,6 +8,7 @@ import org.lessons.java.final_project_java_spring_react.model.Role;
 import org.lessons.java.final_project_java_spring_react.model.User;
 import org.lessons.java.final_project_java_spring_react.repository.RoleRepository;
 import org.lessons.java.final_project_java_spring_react.repository.UserRepository;
+import org.lessons.java.final_project_java_spring_react.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,9 @@ public class AuthRestController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
@@ -70,7 +74,14 @@ public class AuthRestController {
             }
 
             // Save user
-            userRepository.save(user);
+            User savedUser = userRepository.save(user);
+
+            // Send welcome email
+            try {
+                emailService.sendWelcomeEmail(savedUser);
+            } catch (Exception emailEx) {
+                System.err.println("Failed to send welcome email: " + emailEx.getMessage());
+            }
 
             return ResponseEntity
                     .status(HttpStatus.CREATED)

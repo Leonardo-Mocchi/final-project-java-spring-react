@@ -13,13 +13,13 @@ function GameDetail() {
   const [reviews, setReviews] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [newReview, setNewReview] = useState({ rating: 0, comment: '', username: 'Anonymous' });
+  const [newReview, setNewReview] = useState({ rating: 0, comment: '' });
   const [validationErrors, setValidationErrors] = useState({ rating: '', comment: '' });
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [platformStock, setPlatformStock] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const { setIsLoading, user, addToCart } = useContext(GlobalContext);
+  const { setIsLoading, user, addToCart, cart } = useContext(GlobalContext);
 
   const fetchGame = () => {
     console.log(`Fetching game with id: ${id}`);
@@ -63,22 +63,24 @@ function GameDetail() {
 
     setIsLoading(true);
 
-    // Use username from state if not logged in (Anonymous)
-    const reviewData = user
-      ? { rating: newReview.rating, comment: newReview.comment }
-      : { rating: newReview.rating, comment: newReview.comment, username: 'Anonymous' };
+    // Send review data - username will come from backend session
+    const reviewData = { rating: newReview.rating, comment: newReview.comment };
 
     axios.post(`${import.meta.env.VITE_API_URL}/games/${id}/reviews`, reviewData,
       { withCredentials: true })
       .then(() => {
-        setNewReview({ rating: 0, comment: '', username: 'Anonymous' });
+        setNewReview({ rating: 0, comment: '' });
         setValidationErrors({ rating: '', comment: '' });
         setShowReviewForm(false);
+        setToastMessage('✅ Review submitted successfully!');
+        setShowToast(true);
         fetchGame(); // Refresh to get new review
       })
       .catch(error => {
         console.error('Error submitting review:', error);
-        alert('Failed to submit review. Please try again.');
+        const errorMsg = error.response?.data?.message || 'Failed to submit review. Please make sure you are logged in.';
+        setToastMessage('❌ ' + errorMsg);
+        setShowToast(true);
       })
       .finally(() => {
         setIsLoading(false);
@@ -90,7 +92,7 @@ function GameDetail() {
     setTimeout(() => {
       setShowReviewForm(false);
       setIsClosing(false);
-      setNewReview({ rating: 0, comment: '', username: 'Anonymous' });
+      setNewReview({ rating: 0, comment: '' });
       setValidationErrors({ rating: '', comment: '' });
     }, 300); // Match animation duration
   };
@@ -272,6 +274,18 @@ function GameDetail() {
                   if (platformStock > 0) {
                     const platformObj = game.platforms.find(p => p.id === parseInt(selectedPlatform));
                     if (platformObj) {
+                      // Count how many of this game+platform combo are in cart
+                      const countInCart = cart.filter(item =>
+                        item.game.id === game.id && item.platform.id === platformObj.id
+                      ).length;
+
+                      // Only prevent adding if we've reached the available stock
+                      if (countInCart >= platformStock) {
+                        setToastMessage(`⚠️ You've added all available copies (${platformStock}) to your cart!`);
+                        setShowToast(true);
+                        return;
+                      }
+
                       addToCart(game, platformObj);
                       setToastMessage(`🎮 ${game.title} added to cart!`);
                       setShowToast(true);
@@ -307,9 +321,19 @@ function GameDetail() {
         <div className="reviews-header">
           <h2>Reviews</h2>
           {!showReviewForm && (
-            <button onClick={() => setShowReviewForm(true)} className="write-review-btn">
-              Write a Review
-            </button>
+            user ? (
+              <button onClick={() => setShowReviewForm(true)} className="write-review-btn">
+                Write a Review
+              </button>
+            ) : (
+              <button onClick={() => {
+                setToastMessage('⚠️ Please log in to write a review');
+                setShowToast(true);
+                setTimeout(() => navigate('/login'), 2000);
+              }} className="write-review-btn">
+                Write a Review
+              </button>
+            )
           )}
         </div>
 

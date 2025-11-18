@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContext';
 
 export default function Cart() {
-    const { cart, user } = useContext(GlobalContext);
+    const { cart, user, removeFromCart } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const calculateTotal = () => {
@@ -17,13 +17,13 @@ export default function Cart() {
 
     const handleProceedToCheckout = () => {
         if (!user) {
-            alert('Please login to proceed');
-            window.location.href = 'http://localhost:8080/login';
+            // Save current location to redirect back after login
+            sessionStorage.setItem('redirectAfterLogin', '/checkout');
+            navigate('/login');
             return;
         }
 
         if (cart.length === 0) {
-            alert('Your cart is empty');
             return;
         }
 
@@ -68,14 +68,14 @@ export default function Cart() {
                                             className="img-fluid rounded"
                                         />
                                     </div>
-                                    <div className="col-md-6">
+                                    <div className="col-md-5">
                                         <h6>{item.game.title}</h6>
                                         <p className="mb-0">
                                             <i className="fas fa-gamepad me-1"></i>
                                             {item.platform.name}
                                         </p>
                                     </div>
-                                    <div className="col-md-4 text-end">
+                                    <div className="col-md-3 text-end">
                                         {item.game.discountPercentage > 0 ? (
                                             <>
                                                 <span className="badge me-2" style={{ background: '#ff4757', color: 'white', margin: '0' }}>
@@ -93,6 +93,31 @@ export default function Cart() {
                                         ) : (
                                             <h6 style={{ marginRight: '0.5rem' }}>€{item.game.price.toFixed(2)}</h6>
                                         )}
+                                    </div>
+                                    <div className="col-md-2 text-end">
+                                        <button
+                                            className="btn btn-sm"
+                                            style={{
+                                                background: 'transparent',
+                                                color: '#e0e0e0',
+                                                border: '1px solid #2d2d44',
+                                                transition: 'all 0.3s ease'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.background = '#ff4757';
+                                                e.currentTarget.style.borderColor = '#ff4757';
+                                                e.currentTarget.style.color = 'white';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.background = 'transparent';
+                                                e.currentTarget.style.borderColor = '#2d2d44';
+                                                e.currentTarget.style.color = '#e0e0e0';
+                                            }}
+                                            onClick={() => removeFromCart(index)}
+                                            title="Remove from cart"
+                                        >
+                                            <i className="fas fa-trash-alt"></i>
+                                        </button>
                                     </div>
                                 </div>
                             ))}

@@ -7,6 +7,7 @@ import './Homepage.css';
 
 function Homepage() {
   const [games, setGames] = useState([]);
+  const [featuredGames, setFeaturedGames] = useState([]);
   const [hotDeals, setHotDeals] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [error, setError] = useState(null);
@@ -27,7 +28,15 @@ function Homepage() {
         console.log('Games:', gamesResponse.data);
         console.log('Hot deals:', hotDealsResponse.data);
 
-        setGames(gamesResponse.data.slice(0, 8));
+        const allGames = gamesResponse.data.slice(0, 8);
+        setGames(allGames);
+
+        // Randomize featured games once when loading
+        const randomizedFeatured = [...allGames]
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 6);
+        setFeaturedGames(randomizedFeatured);
+
         setHotDeals(hotDealsResponse.data.slice(0, 5));
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -40,17 +49,6 @@ function Homepage() {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Auto-advance carousel
-  useEffect(() => {
-    if (hotDeals.length === 0) return;
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % hotDeals.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [hotDeals.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % hotDeals.length);
@@ -145,19 +143,16 @@ function Homepage() {
       )}
 
       {/* Featured Games Section */}
-      {games.length > 0 && (
+      {featuredGames.length > 0 && (
         <section className="featured-section">
           <div className="section-header">
             <h2>Featured Games</h2>
             <Link to="/games" className="view-all">View All</Link>
           </div>
           <div className="game-grid featured-grid">
-            {[...games]
-              .sort(() => Math.random() - 0.5)
-              .slice(0, 6)
-              .map(game => (
-                <GameCard key={game.id} game={game} />
-              ))}
+            {featuredGames.map(game => (
+              <GameCard key={game.id} game={game} />
+            ))}
           </div>
         </section>
       )}

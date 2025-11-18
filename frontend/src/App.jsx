@@ -11,6 +11,7 @@ import Checkout from './pages/Checkout';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import CheckoutCancel from './pages/CheckoutCancel';
 import Register from './pages/Register';
+import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import NewsletterModal from './components/NewsletterModal';
 import ScrollToTop from './components/ScrollToTop';
@@ -25,6 +26,14 @@ function App() {
       .then(response => {
         console.log('Authenticated user:', response.data);
         setUser(response.data);
+
+        // Handle redirect after login
+        const pendingRedirect = sessionStorage.getItem('pendingRedirect');
+        if (pendingRedirect && pendingRedirect !== window.location.pathname) {
+          sessionStorage.removeItem('pendingRedirect');
+          sessionStorage.removeItem('redirectAfterLogin');
+          window.location.href = pendingRedirect;
+        }
       })
       .catch(error => {
         console.log('No authenticated user:', error);
@@ -70,6 +79,7 @@ function App() {
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
             <Route path="/checkout/cancel" element={<CheckoutCancel />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -9,6 +9,9 @@ import org.lessons.java.final_project_java_spring_react.model.Game;
 import org.lessons.java.final_project_java_spring_react.model.GameKey;
 import org.lessons.java.final_project_java_spring_react.model.Order;
 import org.lessons.java.final_project_java_spring_react.model.User;
+import org.lessons.java.final_project_java_spring_react.repository.UserRepository;
+import org.lessons.java.final_project_java_spring_react.security.DatabaseUserDetails;
+import org.lessons.java.final_project_java_spring_react.service.EmailService;
 import org.lessons.java.final_project_java_spring_react.service.GameKeyService;
 import org.lessons.java.final_project_java_spring_react.service.GameService;
 import org.lessons.java.final_project_java_spring_react.service.OrderService;
@@ -79,10 +82,25 @@ public class CheckoutRestController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/create-session")
     public ResponseEntity<?> createCheckoutSession(
             @Valid @RequestBody CheckoutRequest request,
-            @AuthenticationPrincipal User user) {
+            @AuthenticationPrincipal DatabaseUserDetails userDetails) {
+
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Authentication required"));
+        }
+
+        // Get the actual User entity from the database
+        User user = userRepository.findById(userDetails.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         try {
             // Validate all games exist and have available keys
@@ -157,10 +175,18 @@ public class CheckoutRestController {
                     key.setSold(true);
                 }
 
-                orderService.save(order);
+                Order savedOrder = orderService.save(order);
+
+                // Send order confirmation email
+                try {
+                    emailService.sendOrderConfirmationEmail(savedOrder, savedOrder.getGameKeys());
+                } catch (Exception emailEx) {
+                    System.err.println("Failed to send order confirmation email: " + emailEx.getMessage());
+                }
+
                 return ResponseEntity.ok(Map.of(
                         "success", true,
-                        "order", order));
+                        "order", savedOrder));
             }
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

@@ -6,8 +6,17 @@ const GlobalContext = createContext()
 // Provider component
 function GlobalProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    // Load cart from localStorage on init
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
   const [user, setUser] = useState(null);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   // Fetch current user on mount and when window regains focus
   useEffect(() => {

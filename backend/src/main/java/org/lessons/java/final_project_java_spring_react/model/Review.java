@@ -1,6 +1,7 @@
 package org.lessons.java.final_project_java_spring_react.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
@@ -33,7 +34,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference("user-reviews")
+    @JsonIgnoreProperties({ "password", "email", "roles", "reviews", "orders" })
     private User user;
 
     // Constructors

@@ -137,7 +137,7 @@ function GameList() {
     // Filter by minimum rating
     if (filters.minRating > 0) {
       filtered = filtered.filter(game =>
-        game.averageRating >= filters.minRating
+        game.averageRating != null && game.averageRating >= filters.minRating
       );
     }
 
@@ -219,6 +219,12 @@ function GameList() {
 
       <div className="game-list-container">
         <div className="game-list-content">
+          {isLoading && (
+            <div className="text-center py-5">
+              <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} />
+              <p className="mt-3">Loading games...</p>
+            </div>
+          )}
           {filteredGames.length === 0 && !isLoading ? (
             <div className="no-games-container">
               <div className="no-games-icon">🎮</div>

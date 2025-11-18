@@ -31,7 +31,9 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.DELETE, "/admin/**").hasRole("ADMIN")
                 // General admin pages - ADMIN users only (not USER)
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                // API routes public for React
+                // API routes - protected endpoints require authentication
+                .requestMatchers("/api/checkout/**").authenticated()
+                // Public API routes for React
                 .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 // everything else public
@@ -45,7 +47,17 @@ public class SecurityConfiguration {
                         .permitAll())
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for easier cross-origin authentication
                 .cors(Customizer.withDefaults())
-                .exceptionHandling(Customizer.withDefaults());
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            // Return 401 for API calls instead of redirecting to login
+                            if (request.getRequestURI().startsWith("/api/")) {
+                                response.setStatus(401);
+                                response.setContentType("application/json");
+                                response.getWriter().write("{\"error\":\"Authentication required\"}");
+                            } else {
+                                response.sendRedirect("/login");
+                            }
+                        }));
 
         return http.build();
     }

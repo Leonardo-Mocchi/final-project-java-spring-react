@@ -45,7 +45,7 @@ public class EmailService {
 
             helper.setFrom(fromEmail);
             helper.setTo(user.getEmail());
-            helper.setSubject("Welcome to Game Store! 🎮");
+            helper.setSubject("Welcome to BoolArcade! 🎮");
             helper.setText(htmlContent, true);
 
             mailSender.send(message);
@@ -99,7 +99,7 @@ public class EmailService {
 
             helper.setFrom(fromEmail);
             helper.setTo(email);
-            helper.setSubject("Welcome to Game Store Newsletter! 📬");
+            helper.setSubject("Welcome to BoolArcade Newsletter! 📬");
             helper.setText(htmlContent, true);
 
             mailSender.send(message);
