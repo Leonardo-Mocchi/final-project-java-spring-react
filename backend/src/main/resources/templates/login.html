@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, false)}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>Admin Login</title>
-</head>
+<head th:replace="~{fragments/layout :: head('Admin Login')}"></head>
 
 <body>
-    <div th:fragment="content">
+    <main class="container mt-4">
         <style>
             .login-container {
                 min-height: calc(100vh - 200px);
@@ -79,7 +77,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

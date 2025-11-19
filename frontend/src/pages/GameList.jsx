@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import GameCard from '../components/GameCard';
 import Filters from '../components/Filters';
+import Loader from '../components/Loader';
 import { GlobalContext } from '../contexts/GlobalContext';
 import './GameList.css';
 
@@ -136,9 +137,12 @@ function GameList() {
 
     // Filter by minimum rating
     if (filters.minRating > 0) {
-      filtered = filtered.filter(game =>
-        game.averageRating != null && game.averageRating >= filters.minRating
-      );
+      filtered = filtered.filter(game => {
+        // Show games that have a rating and meet the minimum threshold
+        const hasValidRating = game.averageRating != null && game.averageRating > 0;
+        const meetsMinimum = hasValidRating && game.averageRating >= filters.minRating;
+        return meetsMinimum;
+      });
     }
 
     // Filter by in stock only
@@ -219,12 +223,7 @@ function GameList() {
 
       <div className="game-list-container">
         <div className="game-list-content">
-          {isLoading && (
-            <div className="text-center py-5">
-              <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} />
-              <p className="mt-3">Loading games...</p>
-            </div>
-          )}
+          {isLoading && <Loader />}
           {filteredGames.length === 0 && !isLoading ? (
             <div className="no-games-container">
               <div className="no-games-icon">🎮</div>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, true)}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>Categories Management</title>
-</head>
+<head th:replace="~{fragments/layout :: head('Categories Management')}"></head>
 
 <body>
-    <div th:fragment="content">
+    <nav th:replace="~{fragments/common :: navbar}"></nav>
+
+    <main class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>📁 Categories Management</h1>
             <a th:href="@{/admin/categories/create}" class="btn btn-primary">➕ Add Category</a>
@@ -54,7 +54,9 @@
         <div th:if="${#lists.isEmpty(categories)}" class="text-center py-5">
             <p class="text-muted fs-5">No categories yet. Create your first category!</p>
         </div>
-    </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

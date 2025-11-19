@@ -35,16 +35,24 @@ public class GameRestController {
     //> INDEX
     @GetMapping
     public List<Game> index(@RequestParam(required = false) String search) {
+        List<Game> games;
         if (search != null && !search.isEmpty()) {
-            return gameService.findByTitle(search);
+            games = gameService.findByTitle(search);
+        } else {
+            games = gameService.findAll();
         }
-        return gameService.findAll();
+        // Calculate average rating for each game before returning
+        games.forEach(Game::calculateAverageRating);
+        return games;
     }
 
     //> INDEX - Hot Deals
     @GetMapping("/hot-deals")
     public List<Game> hotDeals() {
-        return gameService.findGamesWithDiscounts();
+        List<Game> games = gameService.findGamesWithDiscounts();
+        // Calculate average rating for each game before returning
+        games.forEach(Game::calculateAverageRating);
+        return games;
     }
 
     //> SHOW
@@ -56,7 +64,10 @@ public class GameRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(gameAttempt.get(), HttpStatus.OK);
+        Game game = gameAttempt.get();
+        // Calculate average rating before returning
+        game.calculateAverageRating();
+        return new ResponseEntity<>(game, HttpStatus.OK);
     }
 
     //> STORE

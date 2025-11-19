@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, true)}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>Orders Management</title>
-</head>
+<head th:replace="~{fragments/layout :: head('Orders Management')}"></head>
 
-<body class="text-white">
-    <div th:fragment="content">
+<body>
+    <nav th:replace="~{fragments/common :: navbar}"></nav>
+
+    <main class="container mt-4">
         <h1>📦 Orders Management</h1>
 
         <!-- Search Form -->
@@ -86,7 +86,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -30,20 +30,6 @@ public class AdminReviewController {
         return "reviews/index";
     }
 
-    // Toggle blur status
-    @PostMapping("/{id}/blur")
-    public String toggleBlur(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        Review review = reviewService.getReviewById(id)
-                .orElseThrow(() -> new RuntimeException("Review not found"));
-
-        review.setIsBlurred(!review.getIsBlurred());
-        reviewService.saveReview(review);
-
-        redirectAttributes.addFlashAttribute("successMessage",
-                review.getIsBlurred() ? "Review blurred!" : "Review unblurred!");
-        return "redirect:/admin/reviews";
-    }
-
     // Show edit form
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
@@ -62,7 +48,6 @@ public class AdminReviewController {
         // Update fields
         existingReview.setRating(review.getRating());
         existingReview.setComment(review.getComment());
-        existingReview.setIsBlurred(review.getIsBlurred());
 
         reviewService.saveReview(existingReview);
         redirectAttributes.addFlashAttribute("successMessage", "Review updated successfully!");

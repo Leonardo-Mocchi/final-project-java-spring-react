@@ -50,6 +50,17 @@ function Homepage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Auto-rotate carousel every 7 seconds
+  useEffect(() => {
+    if (hotDeals.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % hotDeals.length);
+    }, 7000);
+
+    return () => clearInterval(interval);
+  }, [hotDeals.length]);
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % hotDeals.length);
   };
@@ -85,8 +96,9 @@ function Homepage() {
         <section className="hero-carousel">
           <div className="carousel-container">
             {hotDeals.map((game, index) => (
-              <div
+              <Link
                 key={game.id}
+                to={`/games/${game.id}`}
                 className={`carousel-slide ${getSlideClass(index)}`}
               >
                 <div className="carousel-image-wrapper">
@@ -97,27 +109,25 @@ function Homepage() {
                     <span className="deal-badge">🔥 HOT DEAL</span>
                   )}
                 </div>
-                {index === currentSlide && (
-                  <div className="carousel-content">
-                    <h1>{game.title}</h1>
-                    <p className="game-description">{game.description?.substring(0, 150)}...</p>
-                    <div className="carousel-price">
-                      {game.discountPercentage > 0 && game.discountedPrice ? (
-                        <>
-                          <span className="original-price">€{game.price?.toFixed(2)}</span>
-                          <span className="discount-badge">-{game.discountPercentage}%</span>
-                          <span className="current-price">€{game.discountedPrice.toFixed(2)}</span>
-                        </>
-                      ) : (
-                        <span className="current-price">€{game.price?.toFixed(2)}</span>
-                      )}
-                    </div>
-                    <Link to={`/games/${game.id}`} className="cta-button">
-                      View Details
-                    </Link>
+                <div className="carousel-content">
+                  <h1>{game.title}</h1>
+                  <p className="game-description">{game.description?.substring(0, 150)}...</p>
+                  <div className="carousel-price">
+                    {game.discountPercentage > 0 && game.discountedPrice ? (
+                      <>
+                        <span className="original-price">€{game.price?.toFixed(2)}</span>
+                        <span className="discount-badge">-{game.discountPercentage}%</span>
+                        <span className="current-price">€{game.discountedPrice.toFixed(2)}</span>
+                      </>
+                    ) : (
+                      <span className="current-price">€{game.price?.toFixed(2)}</span>
+                    )}
                   </div>
-                )}
-              </div>
+                  <span className="cta-button">
+                    View Details
+                  </span>
+                </div>
+              </Link>
             ))}
 
             {/* Navigation Arrows */}

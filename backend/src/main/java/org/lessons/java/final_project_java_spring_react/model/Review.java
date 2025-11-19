@@ -1,6 +1,5 @@
 package org.lessons.java.final_project_java_spring_react.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -27,14 +26,14 @@ public class Review {
     @Column(name = "is_blurred")
     private Boolean isBlurred = false; // For admin moderation
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "game_id", nullable = false)
-    @JsonBackReference("game-reviews")
+    @JsonIgnoreProperties({ "reviews", "gameKeys", "categories", "description", "price", "imageUrl", "averageRating", "reviewCount" })
     private Game game;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnoreProperties({ "password", "email", "roles", "reviews", "orders" })
+    @JsonIgnoreProperties({ "password", "email", "roles", "reviews", "orders", "enabled" })
     private User user;
 
     // Constructors

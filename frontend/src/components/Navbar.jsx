@@ -73,7 +73,7 @@ function Navbar() {
         {/* Logo */}
         <Link to="/" className="navbar-brand">
           <img src="/full-logo.png" alt="BoolArcade" className="navbar-logo navbar-logo-desktop" />
-          <img src="/icon.png" alt="BoolArcade" className="navbar-logo navbar-logo-mobile" />
+          <img src="/small logo.png" alt="BoolArcade" className="navbar-logo navbar-logo-mobile" />
         </Link>
 
         {/* Desktop Navigation Content */}
