@@ -57,19 +57,27 @@
     font-size: 2rem;
     color: #888;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     transition: all 0.2s;
+    box-sizing: border-box;
+    z-index: 10;
+    /* Center icon perfectly */
+    text-align: center;
+    line-height: 1;
+    padding: 0;
 }
 
 .newsletter-modal-close:hover {
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
     transform: rotate(90deg);
+    /* Spin around center */
+    transform-origin: 50% 50%;
 }
 
 .newsletter-modal-content {

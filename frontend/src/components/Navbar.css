@@ -8,6 +8,27 @@
     z-index: 100;
     display: flex;
     justify-content: center;
+
+    /* Above 1080p - scale navbar height and logo */
+    @media (min-width: 1440px) and (max-width: 1919px) {
+        .navbar {
+            padding: 1.2rem 0;
+        }
+
+        .navbar-logo {
+            height: 48px;
+        }
+    }
+
+    @media (min-width: 1920px) {
+        .navbar {
+            padding: 1.6rem 0;
+        }
+
+        .navbar-logo {
+            height: 60px;
+        }
+    }
 }
 
 .nav-container {

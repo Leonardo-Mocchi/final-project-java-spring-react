@@ -1,0 +1,100 @@
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 20, 0.85);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 2px solid #6c5ce7;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(108, 92, 231, 0.25);
+    width: 95vw;
+    max-width: 400px;
+    color: #e0e0e0;
+    animation: modalPop 0.25s;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.custom-modal-header {
+    background: linear-gradient(90deg, #6c5ce7 0%, #ff006e 100%);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom-modal-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.custom-modal-close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.custom-modal-close:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.custom-modal-body {
+    padding: 1.2rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.custom-modal-footer {
+    padding: 1rem 1.2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.custom-modal-btn {
+    background: linear-gradient(135deg, #ff006e 0%, #6c5ce7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.15);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.custom-modal-btn:hover {
+    background: linear-gradient(135deg, #6c5ce7 0%, #ff006e 100%);
+    transform: translateY(-2px);
+}

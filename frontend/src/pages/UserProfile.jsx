@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import BootstrapModal from '../components/BootstrapModal';
+import '../components/BootstrapModal.css';
 import './UserProfile.css';
 
 function UserProfile() {
@@ -22,6 +24,10 @@ function UserProfile() {
     });
 
     const [errors, setErrors] = useState({});
+    // Modal state for alerts
+    const [modal, setModal] = useState({ show: false, title: '', message: '' });
+    const showModal = (title, message) => setModal({ show: true, title, message });
+    const closeModal = () => setModal({ show: false, title: '', message: '' });
 
     const fetchUserData = useCallback(async () => {
         try {
@@ -126,14 +132,14 @@ function UserProfile() {
                 updateData.newPassword = formData.newPassword;
             }
 
-            const response = await axios.put(`${import.meta.env.VITE_API_URL}/user/me`, updateData, {
+            await axios.put(`${import.meta.env.VITE_API_URL}/user/me`, updateData, {
                 withCredentials: true
             });
 
             if (formData.email !== user.email) {
                 setEmailChangeRequested(true);
             } else {
-                alert('Profile updated successfully!');
+                showModal('Success', 'Profile updated successfully!');
                 setEditMode(false);
                 fetchUserData();
             }
@@ -149,11 +155,11 @@ function UserProfile() {
         } catch (error) {
             console.error('Error updating profile:', error);
             if (error.response?.data?.error) {
-                alert(error.response.data.error);
+                showModal('Error', error.response.data.error);
             } else if (error.response?.data?.message) {
-                alert(error.response.data.message);
+                showModal('Error', error.response.data.message);
             } else {
-                alert('Failed to update profile');
+                showModal('Error', 'Failed to update profile');
             }
         }
     };
@@ -167,10 +173,10 @@ function UserProfile() {
             });
 
             setReviews(reviews.filter(review => review.id !== reviewId));
-            alert('Review deleted successfully!');
+            showModal('Success', 'Review deleted successfully!');
         } catch (error) {
             console.error('Error deleting review:', error);
-            alert('Failed to delete review');
+            showModal('Error', 'Failed to delete review');
         }
     };
 
@@ -210,6 +216,7 @@ function UserProfile() {
 
     return (
         <div className="user-profile-page">
+            <BootstrapModal show={modal.show} title={modal.title} message={modal.message} onClose={closeModal} />
             <div className="profile-container">
                 {/* Header */}
                 <div className="profile-header">
