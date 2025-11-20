@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import './Filters.css';
 
 function Filters({ onFilterChange, activeFilters, isCollapsed, setIsCollapsed }) {
     const [genres, setGenres] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         // Fetch genres (categories)
@@ -53,6 +55,14 @@ function Filters({ onFilterChange, activeFilters, isCollapsed, setIsCollapsed })
             inStockOnly: false,
             gameModes: []
         });
+        // Also remove 'filter' search param from URL
+        try {
+            const newParams = new URLSearchParams(searchParams);
+            newParams.delete('filter');
+            setSearchParams(newParams);
+        } catch (e) {
+            console.warn('Could not clear "filter" search param from Filters', e);
+        }
     };
 
     const hasActiveFilters =

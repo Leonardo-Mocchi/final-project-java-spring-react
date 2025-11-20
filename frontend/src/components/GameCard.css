@@ -74,6 +74,13 @@
     flex-wrap: nowrap;
 }
 
+.price-container.out-of-stock-layout {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+}
+
 .game-card-actions {
     display: flex;
     flex-direction: column;
@@ -82,10 +89,10 @@
 
 .out-of-stock-text {
     color: #ff4757;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin: 0;
-    margin-left: auto;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 auto;
+    text-align: center;
     white-space: nowrap;
 }
 
@@ -125,6 +132,7 @@
     font-weight: bold;
     color: #51cf66;
     order: 1;
+    opacity: 1 !important;
 }
 
 .game-card-price-original {

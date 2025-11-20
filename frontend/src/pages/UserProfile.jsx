@@ -126,7 +126,7 @@ function UserProfile() {
                 updateData.newPassword = formData.newPassword;
             }
 
-            await axios.put(`${import.meta.env.VITE_API_URL}/users/me`, updateData, {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/user/me`, updateData, {
                 withCredentials: true
             });
 
@@ -148,7 +148,9 @@ function UserProfile() {
 
         } catch (error) {
             console.error('Error updating profile:', error);
-            if (error.response?.data?.message) {
+            if (error.response?.data?.error) {
+                alert(error.response.data.error);
+            } else if (error.response?.data?.message) {
                 alert(error.response.data.message);
             } else {
                 alert('Failed to update profile');

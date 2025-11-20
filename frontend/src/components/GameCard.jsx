@@ -41,17 +41,16 @@ function GameCard({ game }) {
           ))}
         </div>
         <div className="game-card-footer">
-          <div className="price-container">
-            {hasDiscount ? (
+          <div className={`price-container${isOutOfStock ? ' out-of-stock-layout' : ''}`}>
+            {isOutOfStock ? (
+              <span className="out-of-stock-text">⚠️ Out of Stock</span>
+            ) : hasDiscount ? (
               <>
-                <span className={`game-card-price-original ${isOutOfStock ? 'text-muted' : ''}`}>${game.price}</span>
-                <span className={`game-card-price ${isOutOfStock ? 'text-muted' : ''}`}>${discountedPrice}</span>
+                <span className="game-card-price-original">${game.price}</span>
+                <span className="game-card-price">${discountedPrice}</span>
               </>
             ) : (
-              <span className={`game-card-price ${isOutOfStock ? 'text-muted' : ''}`}>${game.price}</span>
-            )}
-            {isOutOfStock && (
-              <span className="out-of-stock-text">⚠️ Out of Stock</span>
+              <span className="game-card-price">${game.price}</span>
             )}
           </div>
         </div>

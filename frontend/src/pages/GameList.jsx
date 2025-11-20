@@ -11,7 +11,7 @@ function GameList() {
   const [allGames, setAllGames] = useState([]);
   const [filteredGames, setFilteredGames] = useState([]);
   const [error, setError] = useState(null);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { isLoading, setIsLoading } = useContext(GlobalContext);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
@@ -37,6 +37,15 @@ function GameList() {
       inStockOnly: false,
       gameModes: []
     });
+    // Remove the 'filter' search param from the URL when clearing filters
+    try {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.delete('filter');
+      setSearchParams(newParams);
+    } catch (e) {
+      // noop if searchParams can't be manipulated
+      console.warn('Could not clear "filter" search param', e);
+    }
   };
 
   const fetchGames = (searchTerm = '') => {

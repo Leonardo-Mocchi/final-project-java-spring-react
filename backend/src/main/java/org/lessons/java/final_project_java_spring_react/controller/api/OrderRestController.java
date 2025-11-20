@@ -2,21 +2,27 @@ package org.lessons.java.final_project_java_spring_react.controller.api;
 
 import org.lessons.java.final_project_java_spring_react.model.GameKey;
 import org.lessons.java.final_project_java_spring_react.model.Order;
+import org.lessons.java.final_project_java_spring_react.security.DatabaseUserDetails;
 import org.lessons.java.final_project_java_spring_react.service.GameKeyService;
 import org.lessons.java.final_project_java_spring_react.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/orders")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 public class OrderRestController {
 
     @Autowired
@@ -32,6 +38,45 @@ public class OrderRestController {
             return orderService.getOrdersByUserId(userId);
         }
         return orderService.getAllOrders();
+    }
+
+    //> MY ORDERS - Get orders for currently authenticated user
+    @GetMapping("/my-orders")
+    public ResponseEntity<?> myOrders(@AuthenticationPrincipal DatabaseUserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).body("Not authenticated");
+        }
+
+        List<Order> orders = orderService.getOrdersByUserId(userDetails.getId());
+
+        // Transform orders to include game keys info
+        List<Map<String, Object>> orderData = orders.stream()
+                .filter(order -> "COMPLETED".equals(order.getPaymentStatus()))
+                .map(order -> {
+                    Map<String, Object> orderMap = new HashMap<>();
+                    orderMap.put("id", order.getId());
+                    orderMap.put("orderDate", order.getOrderDate().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+                    orderMap.put("totalPrice", order.getTotalPrice());
+                    orderMap.put("paymentStatus", order.getPaymentStatus());
+                    orderMap.put("paymentMethod", order.getPaymentMethod());
+
+                    // Include items with keys
+                    List<Map<String, Object>> items = order.getGameKeys().stream()
+                            .map(key -> {
+                                Map<String, Object> item = new HashMap<>();
+                                item.put("gameName", key.getGame().getTitle());
+                                item.put("platformName", key.getPlatform().getName());
+                                item.put("keyCode", key.getKeyCode());
+                                return item;
+                            })
+                            .collect(Collectors.toList());
+
+                    orderMap.put("items", items);
+                    return orderMap;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(orderData);
     }
 
     //> SHOW

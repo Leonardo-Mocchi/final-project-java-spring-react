@@ -10,7 +10,7 @@
 .hero-carousel {
     position: relative;
     width: 100%;
-    height: clamp(500px, 50vh, 700px);
+    height: clamp(500px, 60vh, 1100px);
     overflow: hidden;
     margin-bottom: clamp(40px, 5vw, 60px);
     background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
@@ -81,7 +81,8 @@
     position: relative;
     width: 100%;
     height: 100%;
-    max-height: clamp(400px, calc(50vh - 50px), 600px);
+    max-width: 100%;
+    max-height: clamp(400px, calc(60vh - 50px), 1000px);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
@@ -90,8 +91,19 @@
 .carousel-game-image {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
+}
+
+/* Gradual scaling for large viewports */
+@media (min-height: 1081px) {
+    .hero-carousel {
+        height: clamp(900px, 58vh, 1000px);
+    }
+
+    .carousel-image-wrapper {
+        max-height: clamp(800px, calc(58vh - 50px), 950px);
+    }
 }
 
 /* Gradient overlay for all slides */
@@ -479,6 +491,41 @@
         width: 100%;
         order: 2;
         padding: 1.5rem 1.5rem 1rem;
+
+        /* Larger displays (taller than 1080px) - increase carousel size to avoid aggressive cropping */
+        @media (min-height: 1080px),
+        (min-width: 1440px) {
+            .hero-carousel {
+
+                /* Allow the carousel to grow more on tall/wide screens */
+                .hero-carousel {
+                    height: clamp(900px, 62vh, 1200px);
+                }
+
+                .carousel-image-wrapper {
+                    max-height: clamp(800px, calc(62vh - 50px), 1100px);
+                }
+            }
+
+            .carousel-image-wrapper {
+                /* Increase upper bound so images show more on 1440p/4k/5k */
+                max-height: clamp(600px, calc(65vh - 50px), 1400px);
+                border-radius: 18px;
+            }
+
+            .carousel-game-image {
+                object-position: center 45%;
+            }
+
+            /* For ultra wide displays, prefer show-more (contain) to avoid cropping important edges */
+            @media (min-width: 2560px) {
+                .carousel-game-image {
+                    object-fit: contain;
+                    object-position: center;
+                }
+            }
+        }
+
         margin-bottom: 0;
         background: linear-gradient(to top, rgba(15, 15, 35, 0.98) 0%, rgba(15, 15, 35, 0.9) 60%, rgba(15, 15, 35, 0.7) 80%, transparent 100%);
         display: flex;

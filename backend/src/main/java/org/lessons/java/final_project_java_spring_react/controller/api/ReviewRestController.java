@@ -80,4 +80,14 @@ public class ReviewRestController {
         Review updated = reviewService.saveReview(review);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
+
+    //> MY REVIEWS (for profile page)
+    @GetMapping("/my-reviews")
+    public ResponseEntity<?> myReviews(@org.springframework.security.core.annotation.AuthenticationPrincipal org.lessons.java.final_project_java_spring_react.security.DatabaseUserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Not authenticated");
+        }
+        List<Review> reviews = reviewService.getReviewsByUserId(userDetails.getId());
+        return ResponseEntity.ok(reviews);
+    }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import GameCard from '../components/GameCard';
@@ -6,12 +6,13 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import './Homepage.css';
 
 function Homepage() {
-  const [games, setGames] = useState([]);
+  // Removed unused 'games' state
   const [featuredGames, setFeaturedGames] = useState([]);
   const [hotDeals, setHotDeals] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [error, setError] = useState(null);
   const { setIsLoading } = useContext(GlobalContext);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +30,6 @@ function Homepage() {
         console.log('Hot deals:', hotDealsResponse.data);
 
         const allGames = gamesResponse.data.slice(0, 8);
-        setGames(allGames);
 
         // Randomize featured games once when loading
         const randomizedFeatured = [...allGames]
@@ -53,20 +53,28 @@ function Homepage() {
   // Auto-rotate carousel every 7 seconds
   useEffect(() => {
     if (hotDeals.length === 0) return;
-
-    const interval = setInterval(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % hotDeals.length);
     }, 7000);
-
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalRef.current);
   }, [hotDeals.length]);
+
+  const resetCarouselTimer = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % hotDeals.length);
+    }, 7000);
+  };
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % hotDeals.length);
+    resetCarouselTimer();
   };
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + hotDeals.length) % hotDeals.length);
+    resetCarouselTimer();
   };
 
   const goToSlide = (index) => {
