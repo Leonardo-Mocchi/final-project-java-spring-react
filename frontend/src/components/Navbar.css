@@ -158,6 +158,63 @@
     cursor: pointer;
 }
 
+.platform-dropdown {
+    position: relative;
+}
+
+.platform-dropdown-btn {
+    background: transparent;
+    border: none;
+    color: #e0e0e0;
+    padding: 0;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.platform-dropdown-btn:hover {
+    color: #6c5ce7;
+}
+
+.platform-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    background: #1a1a2e;
+    border: 2px solid #2d2d44;
+    border-radius: 8px;
+    padding: 0.5rem;
+    min-width: 150px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.platform-dropdown-item {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #b0b0b0;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.platform-dropdown-item:hover {
+    background: rgba(108, 92, 231, 0.15);
+    border-color: rgba(108, 92, 231, 0.3);
+    color: #e0e0e0;
+}
+
 .platform-link:first-child {
     border-radius: 8px 0 0 8px;
 }
@@ -363,6 +420,17 @@
     color: #a29bfe;
     font-weight: 500;
     white-space: nowrap;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+}
+
+.user-greeting:hover {
+    color: #fff;
+    background: rgba(162, 155, 254, 0.2);
+    transform: translateY(-1px);
 }
 
 .navbar-nav a:hover {
@@ -440,8 +508,16 @@
     }
 }
 
-/* Tablet View (568px - 1023px) */
-@media (max-width: 1023px) and (min-width: 568px) {
+/* Below 1070px - Full Width */
+@media (max-width: 1070px) and (min-width: 1024px) {
+    .nav-container {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+}
+
+/* Tablet View (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 768px) {
     .nav-container {
         padding: 0 1rem;
         gap: 0.75rem;
@@ -450,6 +526,8 @@
     .hamburger-menu {
         display: flex;
         order: 1;
+        width: clamp(26px, 3vw, 30px);
+        height: clamp(20px, 2.5vw, 24px);
     }
 
     .navbar-brand {
@@ -460,7 +538,7 @@
     }
 
     .navbar-logo {
-        height: 42px;
+        height: clamp(32px, 5vw, 42px);
     }
 
     .navbar-logo-mobile {
@@ -524,26 +602,35 @@
     }
 
     .mobile-auth-section {
-        display: flex;
-        justify-content: space-between;
+        display: flex !important;
+        justify-content: space-between !important;
         align-items: center;
         padding-bottom: 1rem;
         border-bottom: 1px solid #2d2d44;
+        gap: 0.75rem;
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+
+    .mobile-auth-section>* {
+        flex-shrink: 0;
     }
 
     .mobile-auth-section .user-greeting {
         color: #e0e0e0;
         font-weight: 600;
+        font-size: clamp(0.85rem, 1.8vw, 0.95rem);
     }
 
     .mobile-auth-section .login-btn,
     .mobile-auth-section .signup-btn,
     .mobile-auth-section .register-btn {
-        padding: 0.6rem 1.2rem;
+        padding: clamp(0.5rem, 1.2vw, 0.6rem) clamp(0.9rem, 2vw, 1.2rem);
         border-radius: 8px;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.3s;
+        font-size: clamp(0.8rem, 1.8vw, 0.9rem);
     }
 
     .mobile-auth-section .login-btn {
@@ -563,10 +650,11 @@
         background: #ff4757;
         color: white;
         border: none;
-        padding: 0.6rem 1.2rem;
+        padding: clamp(0.5rem, 1.2vw, 0.6rem) clamp(0.9rem, 2vw, 1.2rem);
         border-radius: 8px;
         font-weight: 600;
         cursor: pointer;
+        font-size: clamp(0.8rem, 1.8vw, 0.9rem);
     }
 
     .mobile-games-platforms {
@@ -576,9 +664,12 @@
     }
 
     .mobile-games-platforms .all-games-link {
-        width: 100%;
+        width: 100% !important;
         padding: 0.8rem;
         font-size: 1rem;
+        text-align: center;
+        display: block;
+        box-sizing: border-box;
     }
 
     .mobile-games-platforms .platform-links-inline {
@@ -589,7 +680,7 @@
 
     .mobile-games-platforms .platform-link {
         flex: 0 0 calc(50% - 0.25rem);
-        padding: 0.7rem;
+        padding: clamp(0.5rem, 1.5vw, 0.7rem);
         background: #0f0f23;
         border: 1px solid #2d2d44;
         color: #b0b0b0;
@@ -597,6 +688,7 @@
         text-align: center;
         cursor: pointer;
         transition: all 0.3s;
+        font-size: clamp(0.8rem, 1.8vw, 0.95rem);
     }
 
     .mobile-games-platforms .platform-link:hover {
@@ -612,27 +704,28 @@
 
     .mobile-search-bar .search-input {
         flex: 1;
-        padding: 0.8rem;
+        padding: clamp(0.6rem, 1.5vw, 0.75rem);
         background: #0f0f23;
         border: 1px solid #2d2d44;
         color: #e0e0e0;
         border-radius: 8px;
-        font-size: 1rem;
+        font-size: clamp(0.85rem, 1.8vw, 0.95rem);
     }
 
     .mobile-search-bar .search-btn {
-        padding: 0.8rem 1.5rem;
+        padding: clamp(0.6rem, 1.5vw, 0.75rem) clamp(0.8rem, 2vw, 1rem);
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
         border-radius: 8px;
-        font-size: 1.2rem;
+        font-size: clamp(0.9rem, 1.8vw, 1rem);
         cursor: pointer;
+        flex-shrink: 0;
     }
 }
 
-/* Mobile View (≤567px) */
-@media (max-width: 567px) {
+/* Mobile View (≤767px) */
+@media (max-width: 767px) {
     .navbar {
         padding: 0.5rem 0;
     }
@@ -714,7 +807,165 @@
         overflow-y: auto;
     }
 
+    .mobile-auth-section {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #2d2d44;
+        gap: 0.5rem;
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+
+    .mobile-auth-section>* {
+        flex-shrink: 0;
+    }
+
+    .mobile-auth-section .user-greeting {
+        color: #e0e0e0;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .mobile-auth-section .login-btn,
+    .mobile-auth-section .signup-btn,
+    .mobile-auth-section .register-btn {
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-size: 0.85rem;
+    }
+
+    .mobile-auth-section .login-btn {
+        background: transparent;
+        color: #667eea;
+        border: 2px solid #667eea;
+    }
+
+    .mobile-auth-section .signup-btn,
+    .mobile-auth-section .register-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+    }
+
+    .mobile-auth-section .logout-btn {
+        background: #ff4757;
+        color: white;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.85rem;
+    }
+
+    .mobile-games-platforms {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .mobile-games-platforms .all-games-link {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .mobile-games-platforms .platform-links-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .mobile-games-platforms .platform-link {
+        flex: 0 0 calc(50% - 0.25rem);
+        padding: 0.7rem;
+        background: #0f0f23;
+        border: 1px solid #2d2d44;
+        color: #b0b0b0;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+    }
+
+    .mobile-games-platforms .platform-link:hover {
+        border-color: #667eea;
+        color: #e0e0e0;
+    }
+
+    .mobile-search-bar {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .mobile-search-bar .search-input {
+        flex: 1;
+        padding: 0.75rem;
+        background: #0f0f23;
+        border: 1px solid #2d2d44;
+        color: #e0e0e0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+    }
+
+    .mobile-search-bar .search-btn {
+        padding: 0.75rem 1rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+}
+
+/* Small Mobile (≤480px) */
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 0 0.5rem;
+        gap: 0.5rem;
+    }
+
+    .hamburger-menu {
+        width: 26px;
+        height: 20px;
+    }
+
+    .hamburger-menu span {
+        height: 2.5px;
+    }
+
+    .cart-link-mobile {
+        width: 34px;
+        height: 34px;
+        font-size: 1.1rem;
+    }
+
+    .mobile-menu {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .mobile-games-platforms .all-games-link {
+        padding: 0.7rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Extra Small Mobile - Platform Buttons (≤372px) */
+@media (max-width: 372px) {
     .mobile-games-platforms .platform-link {
         flex: 0 0 100%;
+        font-size: 0.9rem;
+        padding: 0.65rem;
     }
 }

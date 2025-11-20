@@ -43,12 +43,28 @@
 
         .btn {
             display: inline-block;
-            padding: 12px 24px;
-            background-color: #667eea;
-            color: white;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 20px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+        }
+
+        .highlight {
+            background-color: #f0f4ff;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -61,7 +77,10 @@
         <div class="content">
             <h2>Hello <span th:text="${username}">User</span>!</h2>
             <p>Thank you for joining <strong>BoolArcade</strong>! We're excited to have you as part of our gaming community.</p>
-            <p>Your account has been successfully created with the email: <strong th:text="${email}">email@example.com</strong></p>
+            <div class="highlight">
+                <p style="margin: 0;"><strong>✅ Account Created Successfully</strong></p>
+                <p style="margin: 5px 0 0 0;">Email: <strong th:text="${email}">email@example.com</strong></p>
+            </div>
             <h3>What's Next?</h3>
             <ul>
                 <li>🎮 Browse our collection of 100+ games</li>

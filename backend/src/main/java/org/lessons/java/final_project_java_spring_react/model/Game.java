@@ -23,6 +23,9 @@ public class Game {
     @Lob
     private String description;
 
+    @Lob
+    private String detailedDescription;
+
     @NotNull(message = "Price is required")
     @DecimalMin(value = "0.0", message = "Price must be positive")
     private Double price;
@@ -91,6 +94,14 @@ public class Game {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDetailedDescription() {
+        return detailedDescription;
+    }
+
+    public void setDetailedDescription(String detailedDescription) {
+        this.detailedDescription = detailedDescription;
     }
 
     public Double getPrice() {

@@ -12,6 +12,7 @@ import CheckoutSuccess from './pages/CheckoutSuccess';
 import CheckoutCancel from './pages/CheckoutCancel';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import NewsletterModal from './components/NewsletterModal';
 import ScrollToTop from './components/ScrollToTop';
@@ -80,6 +81,7 @@ function App() {
             <Route path="/checkout/cancel" element={<CheckoutCancel />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

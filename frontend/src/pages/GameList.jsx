@@ -14,6 +14,7 @@ function GameList() {
   const [searchParams] = useSearchParams();
   const { isLoading, setIsLoading } = useContext(GlobalContext);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
 
   const [filters, setFilters] = useState({
     categories: [],
@@ -26,6 +27,17 @@ function GameList() {
 
   // Platform filter from navbar (URL only)
   const [platformFilter, setPlatformFilter] = useState(null);
+
+  const clearFilters = () => {
+    setFilters({
+      categories: [],
+      priceRange: { min: '', max: '' },
+      minRating: 0,
+      sortBy: 'featured',
+      inStockOnly: false,
+      gameModes: []
+    });
+  };
 
   const fetchGames = (searchTerm = '') => {
     console.log('Fetching games...', searchTerm ? `search: ${searchTerm}` : '');
@@ -242,6 +254,23 @@ function GameList() {
                 <div className="results-count">
                   Showing {filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'}
                 </div>
+                <div className="filter-controls">
+                  <button
+                    className="clear-filters-btn"
+                    onClick={clearFilters}
+                    disabled={!hasActiveFilters}
+                    aria-label="Clear filters"
+                  >
+                    <i className="fa-solid fa-filter-circle-xmark"></i>
+                  </button>
+                  <button
+                    className={`filters-toggle-btn ${!isFiltersCollapsed ? 'active' : ''}`}
+                    onClick={() => setIsFiltersCollapsed(!isFiltersCollapsed)}
+                    aria-label={isFiltersCollapsed ? "Show filters" : "Hide filters"}
+                  >
+                    <i className="fa-solid fa-filter"></i>
+                  </button>
+                </div>
                 <div className="view-toggle">
                   <button
                     className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
@@ -275,6 +304,8 @@ function GameList() {
         <Filters
           onFilterChange={setFilters}
           activeFilters={filters}
+          isCollapsed={isFiltersCollapsed}
+          setIsCollapsed={setIsFiltersCollapsed}
         />
       </div>
     </div>

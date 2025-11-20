@@ -310,7 +310,7 @@ function GameDetail() {
           {/* About Section */}
           <section className="content-section about-section">
             <h2 className="section-title">About This Game</h2>
-            <p className="section-text">{game.description || 'No description available'}</p>
+            <p className="section-text">{game.detailedDescription || game.description || 'No description available'}</p>
           </section>
 
         </div>

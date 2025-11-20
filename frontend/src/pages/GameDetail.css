@@ -231,6 +231,10 @@
     min-width: 250px;
 }
 
+.hero-platform-selector select:hover {
+    border: 2px solid #2d2d44;
+}
+
 /* Price and Purchase Row - Space Between */
 .hero-price-purchase-row {
     display: flex;
@@ -269,31 +273,45 @@
 .hero-platform-select {
     width: 100%;
     padding: 0.7rem 1rem;
-    background: rgba(20, 20, 30, 0.9);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(102, 126, 234, 0.3);
+    background: #16213e;
+    border: 2px solid #2d2d44;
     border-radius: 8px;
     color: white;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+    padding-right: 2.5rem;
 }
 
 .hero-platform-select:hover {
-    border-color: rgba(102, 126, 234, 0.6);
-    background: rgba(102, 126, 234, 0.08);
+    border-color: #667eea;
+    background-color: #1a2642;
 }
 
 .hero-platform-select:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    background-color: #1a2642;
 }
 
 .hero-platform-select option {
     background: #16213e;
     color: white;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+}
+
+.hero-platform-select option:checked {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .hero-stock-indicator-container {
@@ -886,85 +904,209 @@
    RESPONSIVE DESIGN
 ======================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .game-detail-page {
+        padding-top: 0;
+    }
+
     .hero-section {
         min-height: 60vh;
-        padding-top: 70px;
+        max-height: 60vh;
+        padding-top: 0;
+        background-position: top;
+        background-size: contain;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
     }
 
     .hero-overlay {
-        padding: 3rem 1.5rem 2rem;
+        top: 75px;
+        padding: 300px 1rem 1rem;
+        background: linear-gradient(to top,
+                rgba(10, 10, 20, 0.98) 0%,
+                rgba(10, 10, 20, 0.9) 30%,
+                rgba(10, 10, 20, 0.7) 60%,
+                rgba(10, 10, 20, 0.3) 100%);
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .back-button-hero {
+        position: fixed;
+        top: 80px;
+        left: 1rem;
+        padding: 0.5rem 0.9rem;
+        font-size: 0.85rem;
+        gap: 0.5rem;
+        z-index: 50;
+        background: rgba(20, 20, 30, 0.95);
+    }
+
+    .hero-discount-badge {
+        position: fixed;
+        top: 80px;
+        right: 1rem;
+        margin-bottom: 0;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        z-index: 50;
+    }
+
+    .hero-content {
+        padding-top: 0;
+        width: 100%;
     }
 
     .hero-title-row {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        line-height: 1.2;
+        text-shadow: 2px 2px 20px rgba(0, 0, 0, 1), 0 0 30px rgba(0, 0, 0, 0.9);
+        margin: 0;
     }
 
     .hero-description {
-        font-size: 1rem;
-        line-height: 1.5;
+        display: none;
     }
 
     .hero-meta {
-        flex-direction: column;
-        gap: 0.8rem;
-        align-items: flex-start;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .hero-rating,
+    .hero-publisher,
+    .hero-release {
+        font-size: 0.85rem;
+    }
+
+    .hero-publisher,
+    .hero-release {
+        display: none;
     }
 
     .hero-genres {
-        width: 100%;
+        display: none;
+    }
+
+    .hero-genre-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
     }
 
     .hero-platforms-row {
         flex-direction: column;
         align-items: stretch;
-        gap: 1rem;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
     }
 
     .hero-platforms {
         width: 100%;
+        gap: 0.4rem;
+    }
+
+    .hero-platform-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
     }
 
     .hero-platform-selector {
         width: 100%;
         min-width: unset;
+        padding: 0.6rem;
+        font-size: 0.85rem;
     }
 
     .hero-price-purchase-row {
         flex-direction: column;
         align-items: stretch;
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .hero-price-section {
         justify-content: flex-start;
+        gap: 0.75rem;
     }
 
     .hero-price-current,
     .hero-price-discounted {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
 
-    .hero-cta-button {
+    .hero-price-original {
+        font-size: 1rem;
+    }
+
+    .hero-purchase-btn {
         width: 100%;
-        justify-content: center;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .hero-out-of-stock {
+        padding: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .content-wrapper {
+        padding: 1.5rem 0;
+    }
+
+    .content-container {
+        padding: 0 1rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .section-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .content-section {
+        margin-bottom: 2rem;
+    }
+
+    .content-section:first-child {
+        margin-top: 0;
     }
 
     .details-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
-    .back-button-hero {
-        top: 1rem;
-        left: 1rem;
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
+    .detail-card {
+        padding: 1.2rem;
+    }
+
+    .detail-icon {
+        font-size: 1.5rem;
+    }
+
+    .detail-value {
+        font-size: 1rem;
+    }
+
+    .reviews-section {
+        padding: 0 1.5rem 2rem;
     }
 
     .reviews-header {
@@ -972,13 +1114,40 @@
         align-items: flex-start;
     }
 
+    .reviews-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .write-review-btn {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .review-form {
+        padding: 1.5rem;
+    }
+
     .review-form-row {
         flex-direction: column;
         gap: 1rem;
     }
 
+    .review-rating-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+
+    .review-label {
+        font-size: 1.1rem;
+    }
+
     .star-rating {
         justify-content: flex-start;
+    }
+
+    .star-rating label {
+        font-size: 2rem;
     }
 
     .form-actions {
@@ -988,6 +1157,15 @@
     .submit-review-btn,
     .cancel-btn {
         width: 100%;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .review-card {
+        padding: 1.5rem;
+    }
+
+    .review-comment {
+        font-size: 0.95rem;
     }
 }
 

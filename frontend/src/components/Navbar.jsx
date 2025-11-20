@@ -8,6 +8,7 @@ function Navbar() {
   const [search, setSearch] = useState('');
   const [platforms, setPlatforms] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPlatformDropdownOpen, setIsPlatformDropdownOpen] = useState(false);
   const { cart, user, setUser } = useContext(GlobalContext);
   const navigate = useNavigate();
 
@@ -87,16 +88,32 @@ function Navbar() {
               All Games
             </button>
 
-            <div className="platform-links-inline">
-              {platforms.map(platform => (
-                <button
-                  key={platform.id}
-                  className="platform-link"
-                  onClick={() => handlePlatformClick(platform.id)}
-                >
-                  {platform.name}
-                </button>
-              ))}
+            <div className="platform-dropdown">
+              <button
+                className="platform-dropdown-btn"
+                onClick={() => setIsPlatformDropdownOpen(!isPlatformDropdownOpen)}
+              >
+                Choose Platform
+                <span style={{ paddingTop: "2px", fontWeight: "bolder" }}>
+                  {isPlatformDropdownOpen ? <i className="fa-solid fa-chevron-up"></i> : <i className="fa-solid fa-chevron-down"></i>}
+                </span>
+              </button>
+              {isPlatformDropdownOpen && (
+                <div className="platform-dropdown-menu">
+                  {platforms.map(platform => (
+                    <button
+                      key={platform.id}
+                      className="platform-dropdown-item"
+                      onClick={() => {
+                        handlePlatformClick(platform.id);
+                        setIsPlatformDropdownOpen(false);
+                      }}
+                    >
+                      {platform.name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -118,7 +135,9 @@ function Navbar() {
           <div className="nav-actions">
             {user ? (
               <>
-                <span className="user-greeting">👤 {user.username}</span>
+                <Link to="/profile" className="user-greeting" title="View Profile">
+                  👤 {user.username}
+                </Link>
                 {/* Only show admin gear for users with ADMIN authority */}
                 {user.authorities && user.authorities.some(auth =>
                   auth.authority === 'ROLE_ADMIN' || auth.authority === 'ADMIN'
@@ -151,18 +170,24 @@ function Navbar() {
         {/* Mobile/Tablet Menu Content */}
         <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
           {/* Login/User Actions - First Line */}
-          <div className="mobile-auth-section">
+          <div>
             {user ? (
               <>
-                <span className="user-greeting">👤 {user.username}</span>
-                <button onClick={handleLogout} className="logout-btn">
-                  Logout
-                </button>
+                <div className="mobile-auth-section">
+                  <Link to="/profile" className="user-greeting" onClick={() => setIsMenuOpen(false)}>
+                    👤 {user.username}
+                  </Link>
+                  <button onClick={handleLogout} className="logout-btn">
+                    Logout
+                  </button>
+                </div>
               </>
             ) : (
               <>
-                <Link to="/register" className="register-btn">Sign Up</Link>
-                <a href="http://localhost:8080/login" className="login-btn">Login</a>
+                <div className="mobile-auth-section">
+                  <Link to="/register" className="register-btn">Sign Up</Link>
+                  <a href="http://localhost:8080/login" className="login-btn">Login</a>
+                </div>
               </>
             )}
           </div>
